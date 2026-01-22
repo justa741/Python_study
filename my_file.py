@@ -142,8 +142,59 @@ else:
                 break
         else:
             print("True")
-"""
-list = [6,15,4,2,8,5,11,9,7,13]
 
-for i in range(len(list)-1):
-    print(i)
+
+def bubble_sort(data):
+    if len(data) <= 1:
+        return data
+    for i in range(len(data) - 1):
+        for j in range(len(data) - i - 1):
+            if data[j] > data[j + 1]:
+                data[j], data[j + 1] = data[j + 1], data[j]
+    return data
+
+data = [6, 15, 4, 2, 8, 5, 11, 9, 7, 13]
+sorted_data = bubble_sort(data.copy())
+
+print(f"{data} => {sorted_data}")
+"""
+def merge_sort(data):
+    if len(data) <= 1:
+        return data
+    # データを分割
+    center_idx = len(data) // 2
+    left_data = data[:center_idx]
+    right_data = data[center_idx:]
+    # 分割したリストを渡して再帰的に関数を実行
+    merge_sort(left_data)
+    merge_sort(right_data)
+
+    left_idx = right_idx = idx = 0
+    # 分割したリストの左側リスト、右側リストの全要素を比較＆並べ替え
+    while left_idx < len(left_data) and right_idx < len(right_data):
+        if left_data[left_idx] <= right_data[right_idx]:
+            data[idx] = left_data[left_idx]
+            left_idx += 1
+        else:
+            data[idx] = right_data[right_idx]
+            right_idx += 1
+        idx += 1
+
+    # 右側リストの要素が残っていればそれをすべて代入
+    while right_idx < len(right_data):
+        data[idx] = right_data[right_idx]
+        idx += 1
+        right_idx += 1
+
+    # 左側リストの要素が残っていればそれをすべて代入      
+    while left_idx < len(left_data):
+        data[idx] = left_data[left_idx]
+        idx += 1
+        left_idx += 1
+
+    return data
+
+data = [6, 15, 4, 2, 8, 5, 11, 9, 7, 13]
+sorted_data = merge_sort(data.copy())
+
+print(f"{data} => {sorted_data}")
